@@ -3,12 +3,13 @@ import { AppService } from './app.service';
 import { IUserSearchResponse } from './interface/user-search-response';
 import { UserCommand } from './command/user.command';
 import { IUserCreateResponse } from './interface/user-create-response';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('user')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  public async findUserByCredentials(searchParams: {
+  /*public async findUserByCredentials(searchParams: {
     email: string;
     password: string;
   }): Promise<IUserSearchResponse> {
@@ -78,8 +79,8 @@ export class AppController {
     }
 
     return result;
-  }
-
+  }*/
+  @MessagePattern('user-create')
   public async createUser(userParams: UserCommand): Promise<IUserCreateResponse> {
     let result: IUserCreateResponse;
 
@@ -104,6 +105,7 @@ export class AppController {
         try {
           userParams.is_confirmed = false;
           const createdUser = await this.appService.createUser(userParams);
+          console.log(createdUser.toJSON());
           delete createdUser.password;
           result = {
             status: HttpStatus.CREATED,

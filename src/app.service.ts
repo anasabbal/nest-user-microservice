@@ -12,7 +12,7 @@ export class AppService {
   constructor(@InjectModel('User') private readonly userModel: Model<UserCommand>) {
   }
 
-  public async createUser(user: UserCommand): Promise<UserDto>{
+  public async createUser(user: UserCommand): Promise<UserCommand>{
     const userModel = new this.userModel(user);
     return await userModel.save();
   }

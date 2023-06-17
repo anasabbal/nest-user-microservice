@@ -2,14 +2,14 @@ import {
   MongooseOptionsFactory,
   MongooseModuleOptions,
 } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 
 const configService = new ConfigService();
 export class MongoConfigService implements MongooseOptionsFactory {
   createMongooseOptions(): MongooseModuleOptions {
     return {
-      uri: configService.get('MONGO_URI'),
+      uri: 'mongodb+srv://anasabbal10:zadina123@cluster0.hebr9ta.mongodb.net/user',
     };
   }
 }
