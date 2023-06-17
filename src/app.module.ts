@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MongoConfigService } from './config/mongo-config';
 import { UserSchema } from './schema/user.schema';
+import { UserValidationImplementation } from './validation/user.validation.implementation';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { UserSchema } from './schema/user.schema';
     ])
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UserValidationImplementation],
 })
 export class AppModule {}
