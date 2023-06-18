@@ -17,6 +17,7 @@ export class AppController implements UserService{
 
 
 
+  @MessagePattern('user_get_by_id')
   async getUserById(id: string): Promise<IUserSearchResponse> {
     if (!id) {
       return {
@@ -25,9 +26,8 @@ export class AppController implements UserService{
         user: null,
       };
     }
-
     const user = await this.appService.findUserById(id);
-
+    console.log(user.toJSON());
     if (user) {
       return {
         status: HttpStatus.OK,
@@ -42,6 +42,8 @@ export class AppController implements UserService{
       };
     }
   }
+
+  @MessagePattern('user-find-credential')
   async findUserByCredentials(searchParams: { email: string; password: string }): Promise<IUserSearchResponse> {
     if (!searchParams.email || !searchParams.password) {
       return {
